@@ -1,3 +1,4 @@
 src/gql/index.ts
 next.config.js
+codegen.ts
 dev
