@@ -25,6 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+/.ssh
 .env*.local
 .env_secret
 .env
@@ -35,6 +36,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# supabase
-supabase/config.toml

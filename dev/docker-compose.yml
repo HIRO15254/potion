@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  potion-db-local:
+    image: postgres:14
+    container_name: potion_local
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=potion_local
+      - POSTGRES_USER=wizard
+      - POSTGRES_PASSWORD=passw0rd
+      - PGDATA=/var/lib/postgresql/data/potion
+volumes:
+  db-store:
