@@ -49,9 +49,9 @@ const RootLayout: React.FC<RootLayoutProps> = props => {
         <link
           rel="mask-icon"
           href="/favicons/safari-pinned-tab.svg"
-          color="#5bbad5"
+          color="#162d50"
         />
-        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="msapplication-TileColor" content="#162d50" />
         <meta name="theme-color" content="#ffffff" />
         {/* PWA用ここまで */}
         <ColorSchemeScript />

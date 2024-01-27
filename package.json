@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "supabase start && prisma generate && prisma migrate dev && graphql-codegen --config codegen.ts && next dev",
+    "dev": "prisma generate && prisma migrate dev && graphql-codegen --config codegen.ts && next dev",
     "build": "prisma generate && next build && prisma migrate deploy",
     "start": "next start",
     "lint": "prisma generate && gts lint && stylelint \"**/*.css\" && tsc --noEmit",
