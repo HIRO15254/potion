@@ -1,7 +1,7 @@
 {
-    "name": "next-app-template",
-    "short_name": "nat",
-    "description": "オレオレnext.jsフルスタック環境",
+    "name": "potion",
+    "short_name": "potion",
+    "description": "Poker-tools for notion",
     "start_url": "/application",
     "display": "standalone",
     "background_color": "#ffffff",
