@@ -15,8 +15,8 @@ interface RootLayoutProps {
 }
 
 export const metadata = {
-  title: 'next-app-template',
-  description: 'template for next.js app',
+  title: 'potion',
+  description: 'web app for poker players',
 };
 
 const RootLayout: React.FC<RootLayoutProps> = props => {
