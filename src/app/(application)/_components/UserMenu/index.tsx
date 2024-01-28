@@ -10,19 +10,21 @@ import {APPLICATION_TOP_URL, USER_SETTINGS_URL} from 'config/urlConfig';
 
 interface Props {
   children: React.ReactNode;
+  closeMobile?: () => void;
 }
 
 /**
  * 画面の右上に表示されるユーザー情報表示とそこからのドロップダウンメニュー
  */
 export const UserMenu: React.FC<Props> = props => {
-  const {children} = props;
+  const {children, closeMobile} = props;
 
   return (
     <Menu
       width={260}
       position="bottom-end"
       transitionProps={{transition: 'pop-top-right'}}
+      onOpen={closeMobile}
       withinPortal
     >
       <Menu.Target>

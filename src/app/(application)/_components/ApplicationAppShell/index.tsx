@@ -37,6 +37,7 @@ export const ApplicationAppShell: React.FC<Props> = props => {
       padding={{base: 10, sm: 15}}
     >
       <Header
+        closeMobile={() => setMobileOpened(false)}
         burgerOpened={{
           mobile: mobileOpened,
           desktop: desktopOpened,

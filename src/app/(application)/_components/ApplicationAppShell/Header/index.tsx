@@ -14,6 +14,7 @@ import packageJson from '../../../../../../package.json';
 import {UserMenu} from '../../UserMenu';
 
 interface Props {
+  closeMobile?: () => void;
   burgerOpened: {
     mobile: boolean;
     desktop: boolean;
@@ -28,7 +29,7 @@ interface Props {
  * アプリケーション用AppShellのヘッダー
  */
 export const Header: React.FC<Props> = props => {
-  const {burgerOpened, onBurgerClick} = props;
+  const {burgerOpened, onBurgerClick, closeMobile} = props;
 
   const {data: sessionData} = useSession();
 
@@ -56,7 +57,7 @@ export const Header: React.FC<Props> = props => {
           </Anchor>
           <Code>{`v${packageJson.version}`}</Code>
         </Group>
-        <UserMenu>
+        <UserMenu closeMobile={closeMobile}>
           <UserAvatar user={sessionData?.user} size="md" />
         </UserMenu>
       </Group>

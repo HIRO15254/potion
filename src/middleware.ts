@@ -1,7 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server';
 import {withAuth} from 'next-auth/middleware';
 
-// This function can be marked `async` if using `await` inside
 function checkAuth(req: NextRequest) {
   const basicAuth = req.headers.get('authorization');
 
@@ -40,5 +39,5 @@ export default withAuth((req: NextRequest) => {
 });
 
 export const config = {
-  matcher: ['/(application.*)'],
+  matcher: ['/((?!auth).*)'],
 };
