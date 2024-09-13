@@ -20,11 +20,12 @@ export default tseslint.config({
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
     importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.typescript,
     reactPlugin.configs.flat.recommended,
   ],
   languageOptions: {
     ...reactPlugin.configs.flat.recommended.languageOptions,
-    "globals": {
+    globals: {
       ...globals.serviceworker,
       ...globals.browser
     },
@@ -41,7 +42,7 @@ export default tseslint.config({
     "import-access": importAccessPlugin,
     "react": reactPlugin,
   },
-  settings: {
+  "settings": {
     "import/resolver": {
       "typescript": true,
       "node": true,
