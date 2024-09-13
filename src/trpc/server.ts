@@ -1,6 +1,6 @@
 import "server-only";
 
-import React, { cache } from "react";
+import { cache } from "react";
 
 import { createHydrationHelpers } from "@trpc/react-query/rsc";
 import { headers } from "next/headers";

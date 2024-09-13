@@ -53,6 +53,7 @@ export default tseslint.config({
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
     "import/namespace": "off",
+    "import/default": "off",
     "import/order": [
       "warn",
       {
@@ -86,6 +87,12 @@ export default tseslint.config({
       }
     ],
     "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
