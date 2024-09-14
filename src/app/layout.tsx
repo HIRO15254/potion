@@ -7,6 +7,7 @@ import "@mantine/nprogress/styles.css";
 import React from "react";
 
 import {ColorSchemeScript, createTheme, MantineProvider} from "@mantine/core";
+import {Analytics} from "@vercel/analytics/react"
 
 import {TRPCReactProvider} from "~/trpc/react";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
     <body>
     <TRPCReactProvider>
       <MantineProvider theme={theme} defaultColorScheme="auto">
+        <Analytics/>
         {children}
       </MantineProvider>
     </TRPCReactProvider>
