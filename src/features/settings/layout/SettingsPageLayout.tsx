@@ -31,7 +31,7 @@ export const SettingsPageLayout: React.FC<Props> = props => {
           <Tabs.Tab value="notification">
             通知
           </Tabs.Tab>
-          <Tabs.Tab value="apperance">
+          <Tabs.Tab value="appearance">
             外観
           </Tabs.Tab>
         </Tabs.List>

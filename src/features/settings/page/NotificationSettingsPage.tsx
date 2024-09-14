@@ -2,7 +2,7 @@ import React from "react";
 
 import {Title} from "@mantine/core";
 
-import {PushNotificationSettings} from "~/features/settings/components/PushNotificationSettings";
+import {PushNotificationSettings} from "../components/PushNotificationSettings";
 
 export const NotificationSettingsPage = () => {
   return (

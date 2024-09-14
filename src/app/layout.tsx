@@ -27,11 +27,11 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
         <TRPCReactProvider>
-          <MantineProvider theme={theme}>
+          <MantineProvider theme={theme} defaultColorScheme="auto">
             {children}
           </MantineProvider>
         </TRPCReactProvider>
