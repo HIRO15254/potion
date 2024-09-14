@@ -1,6 +1,7 @@
 import React from "react";
 
 import {Title} from "@mantine/core";
+
 import {ColorSchemeSettings} from "../components/ColorSchemeSettings";
 
 export const AppearanceSettingsPage = () => {
