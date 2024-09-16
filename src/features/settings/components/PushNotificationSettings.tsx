@@ -29,6 +29,7 @@ export const PushNotificationSettings: React.FC<Props> = (props) => {
   return (
     <Switch
       label="プッシュ通知を受け取る"
+      description="ちなみにプッシュ通知が来ることは現状ありません"
       checked={isSubscribed}
       onChange={isSubscribed ? unsubscribeFromPush : subscribeToPush}
       {...others}
