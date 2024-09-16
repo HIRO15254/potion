@@ -36,9 +36,7 @@ export const SettingsPageLayout: React.FC<Props> = (props) => {
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>
-      <Container size="sm" py="md">
-        {children}
-      </Container>
+      {children}
     </Container>
   )
 }

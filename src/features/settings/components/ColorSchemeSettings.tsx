@@ -2,9 +2,15 @@
 
 import React from 'react'
 
-import { MantineColorScheme, Select, useMantineColorScheme } from '@mantine/core'
+import { MantineColorScheme, Select, SelectProps, useMantineColorScheme } from '@mantine/core'
 
-export function ColorSchemeSettings() {
+type Props = Omit<SelectProps, 'data' | 'value' | 'onChange'>
+
+/**
+ * [client] カラーテーマ設定コンポーネント
+ */
+export const ColorSchemeSettings: React.FC<Props> = (props) => {
+  const { ...others } = props
   const { colorScheme, setColorScheme } = useMantineColorScheme()
 
   return (
@@ -17,6 +23,7 @@ export function ColorSchemeSettings() {
       ]}
       value={colorScheme}
       onChange={(value) => { setColorScheme(value as MantineColorScheme) }}
+      {...others}
     />
   )
 }

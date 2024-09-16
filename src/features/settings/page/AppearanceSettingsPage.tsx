@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { Title } from '@mantine/core'
+import { Container, Title } from '@mantine/core'
 
 import { ColorSchemeSettings } from '../components/ColorSchemeSettings'
 
-export const AppearanceSettingsPage = () => {
+export const AppearanceSettingsPage: React.FC = () => {
   return (
-    <>
-      <Title order={3}>
+    <Container size="sm" py="md">
+      <Title order={3} pb="lg">
         外観設定
       </Title>
       <ColorSchemeSettings />
-    </>
+    </Container>
   )
 }

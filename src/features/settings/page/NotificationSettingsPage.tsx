@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { Title } from '@mantine/core'
+import { Container, Title } from '@mantine/core'
 
 import { PushNotificationSettings } from '../components/PushNotificationSettings'
 
-export const NotificationSettingsPage = () => {
+export const NotificationSettingsPage: React.FC = () => {
   return (
-    <>
-      <Title order={3}>
+    <Container size="sm" py="md">
+      <Title order={3} pb="lg">
         通知設定
       </Title>
       <PushNotificationSettings />
-    </>
+    </Container>
   )
 }

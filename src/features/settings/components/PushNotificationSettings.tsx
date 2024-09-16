@@ -2,11 +2,17 @@
 
 import React from 'react'
 
-import { Stack, Switch, Text } from '@mantine/core'
+import { Switch, SwitchProps, Text } from '@mantine/core'
 
 import { usePushNotification } from '~/features/pwa/usePushNotification'
 
-export function PushNotificationSettings() {
+type Props = Omit<SwitchProps, 'checked' | 'onChange'>
+
+/**
+ * [client] プッシュ通知設定コンポーネント
+ */
+export const PushNotificationSettings: React.FC<Props> = (props) => {
+  const { ...others } = props
   const {
     isSupported,
     isSubscribed,
@@ -21,12 +27,11 @@ export function PushNotificationSettings() {
   }
 
   return (
-    <Stack pt="md">
-      <Switch
-        label="プッシュ通知を受け取る"
-        checked={isSubscribed}
-        onChange={isSubscribed ? unsubscribeFromPush : subscribeToPush}
-      />
-    </Stack>
+    <Switch
+      label="プッシュ通知を受け取る"
+      checked={isSubscribed}
+      onChange={isSubscribed ? unsubscribeFromPush : subscribeToPush}
+      {...others}
+    />
   )
 }
