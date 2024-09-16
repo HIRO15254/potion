@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 
-import {Title} from "@mantine/core";
+import { Title } from '@mantine/core'
 
-import {PushNotificationSettings} from "../components/PushNotificationSettings";
+import { PushNotificationSettings } from '../components/PushNotificationSettings'
 
 export const NotificationSettingsPage = () => {
   return (
@@ -12,5 +12,5 @@ export const NotificationSettingsPage = () => {
       </Title>
       <PushNotificationSettings />
     </>
-  );
+  )
 }

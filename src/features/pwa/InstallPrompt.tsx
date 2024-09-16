@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 export function InstallPrompt() {
   const [isIOS, setIsIOS] = useState(false)
@@ -9,7 +9,7 @@ export function InstallPrompt() {
   useEffect(() => {
     setIsIOS(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream,
     )
 
     setIsStandalone(window.matchMedia('(display-mode: standalone)').matches)
@@ -28,13 +28,16 @@ export function InstallPrompt() {
           To install this app on your iOS device, tap the share button
           <span role="img" aria-label="share icon">
             {' '}
-            ⎋{' '}
+            ⎋
+            {' '}
           </span>
-          {"and then \"Add to Home Screen\""}
+          and then Add to Home Screen
           <span role="img" aria-label="plus icon">
             {' '}
-            ➕{' '}
-          </span>.
+            ➕
+            {' '}
+          </span>
+          .
         </p>
       )}
     </div>

@@ -1,3 +1,3 @@
-import {AppearanceSettingsPage} from  "~/features/settings/page/AppearanceSettingsPage";
+import { AppearanceSettingsPage } from '~/features/settings/page/AppearanceSettingsPage'
 
-export default AppearanceSettingsPage;
+export default AppearanceSettingsPage

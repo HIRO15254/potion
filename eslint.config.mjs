@@ -8,6 +8,7 @@ import importPlugin from "eslint-plugin-import"
 import importAccessPlugin from "eslint-plugin-import-access/flat-config"
 import unusedImportsPlugin from "eslint-plugin-unused-imports"
 import reactPlugin from "eslint-plugin-react"
+import stylistic from '@stylistic/eslint-plugin'
 
 export default tseslint.config({
   files: ["**/*.{ts,tsx}"],
@@ -22,6 +23,7 @@ export default tseslint.config({
     importPlugin.flatConfigs.recommended,
     importPlugin.flatConfigs.typescript,
     reactPlugin.configs.flat.recommended,
+    stylistic.configs["recommended-flat"],
   ],
   languageOptions: {
     ...reactPlugin.configs.flat.recommended.languageOptions,

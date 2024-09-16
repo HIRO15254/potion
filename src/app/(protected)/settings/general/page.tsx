@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import {InstallPrompt} from "~/features/pwa/InstallPrompt";
-import {PushNotificationManager} from "~/features/pwa/PushNotificationManager";
+import { InstallPrompt } from '~/features/pwa/InstallPrompt'
+import { PushNotificationManager } from '~/features/pwa/PushNotificationManager'
 
 export default function Home() {
   return (
@@ -22,5 +22,5 @@ export default function Home() {
         <InstallPrompt />
       </div>
     </main>
-  );
+  )
 }

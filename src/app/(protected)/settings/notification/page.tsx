@@ -1,3 +1,3 @@
-import {NotificationSettingsPage} from "~/features/settings/page/NotificationSettingsPage";
+import { NotificationSettingsPage } from '~/features/settings/page/NotificationSettingsPage'
 
-export default NotificationSettingsPage;
+export default NotificationSettingsPage

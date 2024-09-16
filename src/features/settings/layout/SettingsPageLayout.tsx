@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import React from "react";
+import React from 'react'
 
-import {Container, Tabs, Title} from "@mantine/core";
-import {useRouter, useSelectedLayoutSegment} from "next/navigation";
+import { Container, Tabs, Title } from '@mantine/core'
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-export const SettingsPageLayout: React.FC<Props> = props => {
-  const {children} = props;
-  const router = useRouter();
-  const segment = useSelectedLayoutSegment();
+export const SettingsPageLayout: React.FC<Props> = (props) => {
+  const { children } = props
+  const router = useRouter()
+  const segment = useSelectedLayoutSegment()
 
   const handleTabChange = (value: string | null) => {
-    router.replace(`/settings/${value ?? "general"}`);
+    router.replace(`/settings/${value ?? 'general'}`)
   }
 
   return (
@@ -40,5 +40,5 @@ export const SettingsPageLayout: React.FC<Props> = props => {
         {children}
       </Container>
     </Container>
-  );
+  )
 }

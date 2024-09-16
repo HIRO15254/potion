@@ -1,3 +1,3 @@
-import {SettingsPageLayout} from "~/features/settings/layout/SettingsPageLayout";
+import { SettingsPageLayout } from '~/features/settings/layout/SettingsPageLayout'
 
-export default SettingsPageLayout;
+export default SettingsPageLayout

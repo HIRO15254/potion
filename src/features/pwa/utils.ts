@@ -1,4 +1,4 @@
-import {PushSubscription as WebPushSubscription} from 'web-push'
+import { PushSubscription as WebPushSubscription } from 'web-push'
 
 export const urlBase64ToUint8Array = (base64String: string) => {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
@@ -26,7 +26,7 @@ export const flattenPushSubscription = (sub: PushSubscription): WebPushSubscript
       keys: {
         p256dh: ret.keys.p256dh,
         auth: ret.keys.auth,
-      }
+      },
     }
   }
   throw new Error('Invalid PushSubscription')

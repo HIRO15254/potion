@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import {Container, Title} from "@mantine/core";
+import { Container, Title } from '@mantine/core'
 
 export default function Home() {
   return (
@@ -16,5 +16,5 @@ export default function Home() {
         </div>
       </div>
     </Container>
-  );
+  )
 }

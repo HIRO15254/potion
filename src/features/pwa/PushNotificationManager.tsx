@@ -1,11 +1,10 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Button, Input, Paper, Stack, Switch, Text, Title} from "@mantine/core";
+import { Button, Input, Paper, Stack, Switch, Text, Title } from '@mantine/core'
 
-import {usePushNotification} from "~/features/pwa/usePushNotification";
-
+import { usePushNotification } from '~/features/pwa/usePushNotification'
 
 export function PushNotificationManager() {
   const [message, setMessage] = useState('')
@@ -41,9 +40,9 @@ export function PushNotificationManager() {
               type="text"
               placeholder="Enter notification message"
               value={message}
-              onChange={(e) => { setMessage(e.target.value); }}
+              onChange={(e) => { setMessage(e.target.value) }}
             />
-            <Button onClick={() => { sendTestNotification(message); }}>テスト通知を送る</Button>
+            <Button onClick={() => { sendTestNotification(message) }}>テスト通知を送る</Button>
           </>
         )}
       </Stack>

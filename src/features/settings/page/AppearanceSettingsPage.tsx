@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 
-import {Title} from "@mantine/core";
+import { Title } from '@mantine/core'
 
-import {ColorSchemeSettings} from "../components/ColorSchemeSettings";
+import { ColorSchemeSettings } from '../components/ColorSchemeSettings'
 
 export const AppearanceSettingsPage = () => {
   return (
@@ -12,5 +12,5 @@ export const AppearanceSettingsPage = () => {
       </Title>
       <ColorSchemeSettings />
     </>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import {z} from "zod";
+import { z } from 'zod'
 
-import {createTRPCRouter, protectedProcedure,} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
 
 export const pushSubscriptionRouter = createTRPCRouter({
   create: protectedProcedure
@@ -18,7 +18,7 @@ export const pushSubscriptionRouter = createTRPCRouter({
           keys_auth: input.keys.auth,
           keys_p256dh: input.keys.p256dh,
           user: { connect: { id: ctx.session.user.id } },
-        }
+        },
       })
     }),
   delete: protectedProcedure
@@ -29,20 +29,20 @@ export const pushSubscriptionRouter = createTRPCRouter({
       return ctx.db.pushSubscription.delete({
         where: {
           endpoint: input.endpoint,
-        }
+        },
       })
     }),
   mySubscriptions: protectedProcedure.query(async ({ ctx }) => {
     return ctx.db.pushSubscription.findMany({
       where: {
         userId: ctx.session.user.id,
-      }
-    }).then((subs) => subs.map((sub) => ({
+      },
+    }).then(subs => subs.map(sub => ({
       endpoint: sub.endpoint,
       keys: {
         p256dh: sub.keys_p256dh,
         auth: sub.keys_auth,
-      }
+      },
     })))
   }),
-});
+})

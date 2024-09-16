@@ -2,9 +2,9 @@
 
 import React from 'react'
 
-import {Stack, Switch, Text} from "@mantine/core";
+import { Stack, Switch, Text } from '@mantine/core'
 
-import {usePushNotification} from "~/features/pwa/usePushNotification";
+import { usePushNotification } from '~/features/pwa/usePushNotification'
 
 export function PushNotificationSettings() {
   const {

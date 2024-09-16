@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react'
 
-import {env} from "~/env";
-import {sendMeNotification, subscribePush, unsubscribePush} from "~/features/pwa/actions";
-import {flattenPushSubscription, urlBase64ToUint8Array} from "~/features/pwa/utils";
+import { env } from '~/env'
+import { sendMeNotification, subscribePush, unsubscribePush } from '~/features/pwa/actions'
+import { flattenPushSubscription, urlBase64ToUint8Array } from '~/features/pwa/utils'
 
 interface usePushNotificationReturnType {
-  isSupported: boolean;
-  isSubscribed: boolean;
-  subscribeToPush: () => void;
-  unsubscribeFromPush: () => void;
-  sendTestNotification: (message: string) => void;
+  isSupported: boolean
+  isSubscribed: boolean
+  subscribeToPush: () => void
+  unsubscribeFromPush: () => void
+  sendTestNotification: (message: string) => void
 }
 
 export const usePushNotification = (): usePushNotificationReturnType => {
   const [isSupported, setIsSupported] = useState(false)
   const [subscription, setSubscription] = useState<PushSubscription | null>(
-    null
+    null,
   )
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const usePushNotification = (): usePushNotificationReturnType => {
     }).then((sub) => {
       setSubscription(sub)
     }).catch((_e: unknown) => {
-      throw new Error("サービスワーカーの登録に失敗しました")
+      throw new Error('サービスワーカーの登録に失敗しました')
     })
   }
 
@@ -51,7 +51,7 @@ export const usePushNotification = (): usePushNotificationReturnType => {
       return registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(
-          env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
         ),
       })
     }).then(async (sub) => {
@@ -70,7 +70,7 @@ export const usePushNotification = (): usePushNotificationReturnType => {
       throw new Error('プッシュ通知を購読していません')
     }
     subscription.unsubscribe().then(() => {
-      return unsubscribePush(flattenPushSubscription(subscription));
+      return unsubscribePush(flattenPushSubscription(subscription))
     }).then(() => {
       setSubscription(null)
     }).catch((_e: unknown) => {
