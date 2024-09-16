@@ -15,10 +15,11 @@ export const CustomAppShellNavbar: React.FC<Props> = (props) => {
   interface LinksProps {
     href: string
     icon: React.ReactNode
+    label: string
   }
 
   const Links: React.FC<LinksProps> = (props) => {
-    const { href, icon } = props
+    const { href, icon, label } = props
     const handleClick = () => {
       close()
       router.push(href)
@@ -27,7 +28,7 @@ export const CustomAppShellNavbar: React.FC<Props> = (props) => {
       <UnstyledButton onClick={handleClick}>
         <Group>
           {icon}
-          <Text>設定</Text>
+          <Text>{label}</Text>
         </Group>
       </UnstyledButton>
     )
@@ -36,7 +37,7 @@ export const CustomAppShellNavbar: React.FC<Props> = (props) => {
   return (
     <AppShellNavbar p="md" {...others}>
       <Stack>
-        <Links href="/settings" icon={<IconSettings size={20} />} />
+        <Links href="/settings" icon={<IconSettings size={20} />} label="設定" />
       </Stack>
     </AppShellNavbar>
   )
