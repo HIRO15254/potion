@@ -8,6 +8,11 @@ interface Props extends AppShellNavbarProps {
   close: () => void
 }
 
+/**
+ * カスタムAppShellのナビゲーションバー部分
+ * @param props
+ * @package
+ */
 export const CustomAppShellNavbar: React.FC<Props> = (props) => {
   const { close, ...others } = props
   const router = useRouter()

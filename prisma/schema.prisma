@@ -39,6 +39,26 @@ model PushSubscription {
   @@index([userId])
 }
 
+model HandHistory {
+  id       Int      @id @default(autoincrement())
+  author   User     @relation(fields: [authorId], references: [id])
+  authorId String
+  time     DateTime
+  title    String
+
+  variant           String
+  seat_count        Int
+  players           String[]
+  antes             Int[]
+  blindsOrStraddles Int[]
+  minBet            Int
+  startingStacks    Int[]
+  actions           String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // Necessary for Next auth
 model Account {
   id                       String  @id @default(cuid())
@@ -77,6 +97,7 @@ model User {
   sessions          Session[]
   posts             Post[]
   pushSubscriptions PushSubscription[]
+  Hand              Hand[]
 }
 
 model VerificationToken {

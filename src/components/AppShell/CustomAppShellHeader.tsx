@@ -8,6 +8,11 @@ interface Props {
   toggle: () => void
 }
 
+/**
+ * カスタムAppShellのヘッダー部分
+ * @param props
+ * @package
+ */
 export const CustomAppShellHeader: React.FC<Props> = (props) => {
   const { opened, toggle } = props
   return (

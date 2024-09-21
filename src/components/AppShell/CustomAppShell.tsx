@@ -14,8 +14,6 @@ interface Props {
 
 /**
  * [client] カスタムAppShellの見た目を定義
- * @param props
- * @constructor
  */
 export const CustomAppShell = (props: Props) => {
   const { children } = props
