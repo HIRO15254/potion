@@ -1,10 +1,9 @@
-import { Title } from "@mantine/core";
-import { HydrateClient } from "~/trpc/server";
+import { Container, Title } from "@mantine/core";
 
 export default async function Home() {
   return (
-    <HydrateClient>
+    <Container size="md">
       <Title order={1}>Welcome to Potion</Title>
-    </HydrateClient>
+    </Container>
   );
 }

@@ -7,7 +7,12 @@ import { pokerRooms, pokerRoomsInsertSchema } from "~/server/db/schema";
 
 export const pokerRoomRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(pokerRoomsInsertSchema)
+    .input(
+      pokerRoomsInsertSchema.pick({
+        name: true,
+        type: true,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db.insert(pokerRooms).values({
         userId: ctx.session.user.id,

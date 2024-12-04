@@ -17,7 +17,9 @@ export const roomTypeEnum = pgEnum("room_type", ["live", "online"]);
 
 export const pokerRooms = createApplicationTable("room", {
   id: serial("id").primaryKey(),
-  userId: varchar("user_id", { length: 255 }).notNull(),
+  userId: varchar("user_id", { length: 255 })
+    .notNull()
+    .references(() => users.id),
   name: varchar("name", { length: 255 }).notNull(),
   type: roomTypeEnum("type").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
@@ -33,7 +35,9 @@ export const pokerRoomsSelectSchema = createSelectSchema(pokerRooms);
 
 export const pokerGames = createApplicationTable("game", {
   id: serial("id").primaryKey(),
-  userId: varchar("user_id", { length: 255 }).notNull(),
+  userId: varchar("user_id", { length: 255 })
+    .notNull()
+    .references(() => users.id),
   roomId: integer("room_id")
     .notNull()
     .references(() => pokerRooms.id),
@@ -41,11 +45,11 @@ export const pokerGames = createApplicationTable("game", {
   gameName: varchar("game_name", { length: 255 }).notNull(),
   limit: varchar("limit", { length: 255 }).notNull(),
 
-  firstBlind: integer("first_blind").notNull(),
-  secondBlind: integer("second_blind").notNull(),
-  thirdBlind: integer("third_blind").notNull(),
-  fourthBlind: integer("fourth_blind").notNull(),
-  ante: integer("ante").notNull(),
+  firstBlind: integer("first_blind"),
+  secondBlind: integer("second_blind"),
+  thirdBlind: integer("third_blind"),
+  fourthBlind: integer("fourth_blind"),
+  ante: integer("ante"),
 
   memo: text("memo"),
 

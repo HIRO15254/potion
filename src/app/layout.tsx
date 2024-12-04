@@ -4,9 +4,11 @@ import "@mantine/charts/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/dates/styles.css";
 
-import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
+import { Box, ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { type Metadata } from "next";
 
+import { redirect } from "next/navigation";
+import { auth } from "~/server/auth";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
@@ -14,20 +16,22 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const session = await auth();
+  if (session?.user == null) {
+    redirect("/api/auth/signin");
+  }
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
         <TRPCReactProvider>
-          <MantineProvider defaultColorScheme="dark">
-            <Container size="md" my="sm">
-              {children}
-            </Container>
+          <MantineProvider>
+            <Box m="sm">{children}</Box>
           </MantineProvider>
         </TRPCReactProvider>
       </body>
