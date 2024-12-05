@@ -3,10 +3,12 @@ import "@mantine/core/styles.css";
 import "@mantine/charts/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/dates/styles.css";
+import "@mantine/tiptap/styles.css";
 
 import { Box, ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { type Metadata } from "next";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { redirect } from "next/navigation";
 import { auth } from "~/server/auth";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -30,6 +32,7 @@ export default async function RootLayout({
       </head>
       <body>
         <TRPCReactProvider>
+          <SpeedInsights />
           <MantineProvider>
             <Box m="sm">{children}</Box>
           </MantineProvider>

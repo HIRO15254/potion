@@ -20,8 +20,12 @@ export const pokerRooms = createApplicationTable("room", {
   userId: varchar("user_id", { length: 255 })
     .notNull()
     .references(() => users.id),
+
   name: varchar("name", { length: 255 }).notNull(),
   type: roomTypeEnum("type").notNull(),
+
+  memo: text("memo"),
+
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
