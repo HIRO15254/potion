@@ -14,6 +14,7 @@ export const pokerRoomRouterSchema = {
     .partial()
     .required({ id: true }),
   get: pokerRoomsSelectSchema.partial(),
+  getById: pokerRoomsSelectSchema.partial().required({ id: true }),
 };
 
 export const pokerRoomRouter = createTRPCRouter({
@@ -50,6 +51,17 @@ export const pokerRoomRouter = createTRPCRouter({
         where: and(
           eq(pokerRooms.userId, ctx.session.user.id),
           input.id ? eq(pokerRooms.id, input.id) : undefined,
+        ),
+      });
+    }),
+
+  getById: protectedProcedure
+    .input(pokerRoomRouterSchema.getById)
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.query.pokerRooms.findFirst({
+        where: and(
+          eq(pokerRooms.userId, ctx.session.user.id),
+          eq(pokerRooms.id, input.id),
         ),
       });
     }),

@@ -31,6 +31,7 @@ export const useUpdatePokerRoomModal = () => {
           throw new Error("Failed to fetch data");
         }
         const newData = data[0];
+        console.log(newData.memo);
         form.setValues({
           name: newData.name,
           type: newData.type,
@@ -40,6 +41,7 @@ export const useUpdatePokerRoomModal = () => {
     };
     update();
   }, [id]);
+
   const [opened, { open, close }] = useDisclosure();
   const form = useForm<PokerRoomFormType>({
     initialValues: {
@@ -56,18 +58,23 @@ export const useUpdatePokerRoomModal = () => {
     ),
   });
 
-  const mutation = api.pokerRoom.update.useMutation({
-    onSuccess: () => {
-      close();
-      router.refresh();
-    },
-  });
-
-  const handleOpen = async (id: number) => {
+  const handleOpen = (id: number) => {
     form.reset();
     setId(id);
     open();
   };
+
+  const handleClose = () => {
+    setId(null);
+    close();
+  };
+
+  const mutation = api.pokerRoom.update.useMutation({
+    onSuccess: () => {
+      handleClose();
+      router.refresh();
+    },
+  });
 
   const modal = (
     <Modal opened={opened} onClose={close} size="lg" title="ポーカールーム更新">

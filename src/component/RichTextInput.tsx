@@ -1,4 +1,7 @@
+"use client";
+
 import { Input, InputWrapperProps } from "@mantine/core";
+import { useUncontrolled } from "@mantine/hooks";
 import { Link, RichTextEditor } from "@mantine/tiptap";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
@@ -10,15 +13,28 @@ import React from "react";
 type RichTextInputProps = InputWrapperProps & {
   value?: string;
   defaultValue?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
   error?: string;
 };
 
 export const RichTextInput: React.FC<RichTextInputProps> = (props) => {
-  const { value, defaultValue, onChange, onFocus, onBlur, error, ...others } =
-    props;
+  const { value, defaultValue, onChange, error, ...others } = props;
+
+  const [upd, forceUpdate] = React.useState<boolean>(false);
+  const [_value, setValue] = useUncontrolled<string>({
+    value,
+    defaultValue,
+    finalValue: "",
+    onChange,
+  });
+
+  React.useEffect(() => {
+    console.log("value", value);
+    console.log("_value", _value);
+    console.log("upd", upd);
+    forceUpdate(!upd);
+  }, [value]);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -27,10 +43,9 @@ export const RichTextInput: React.FC<RichTextInputProps> = (props) => {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content: defaultValue,
-    onUpdate({ editor }) {
-      const content = editor.getHTML();
-      onChange?.(content as never);
+    content: _value,
+    onUpdate: ({ editor }) => {
+      setValue(editor.getHTML());
     },
   });
 
