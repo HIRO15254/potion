@@ -9,8 +9,7 @@ import { Box, ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { type Metadata } from "next";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { redirect } from "next/navigation";
-import { auth } from "~/server/auth";
+import { loginProtection } from "~/features/auth/loginProtection";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
@@ -21,10 +20,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = await auth();
-  if (session?.user == null) {
-    redirect("/api/auth/signin");
-  }
+  await loginProtection();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

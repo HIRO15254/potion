@@ -12,8 +12,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "dev": "next dev --turbo",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --write ./src",
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit"
@@ -21,16 +21,20 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.2",
     "@mantine/charts": "^7.14.3",
-    "@mantine/core": "^7.14.3",
+    "@mantine/core": "^7.15.1",
     "@mantine/dates": "^7.14.3",
     "@mantine/form": "^7.14.3",
-    "@mantine/hooks": "^7.14.3",
+    "@mantine/hooks": "^7.15.1",
     "@mantine/modals": "^7.14.3",
     "@mantine/notifications": "^7.14.3",
-    "@mantine/tiptap": "^7.14.3",
+    "@mantine/tiptap": "^7.15.1",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "@tabler/icons-react": "^3.24.0",
     "@tanstack/react-query": "^5.50.0",
+    "@tiptap/extension-highlight": "^2.10.3",
     "@tiptap/extension-link": "^2.10.3",
+    "@tiptap/extension-text-align": "^2.10.3",
+    "@tiptap/extension-underline": "^2.10.3",
     "@tiptap/pm": "^2.10.3",
     "@tiptap/react": "^2.10.3",
     "@tiptap/starter-kit": "^2.10.3",
@@ -50,7 +54,7 @@
     "recharts": "2",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
-    "zod": "^3.23.3"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
