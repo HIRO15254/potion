@@ -1,6 +1,14 @@
 "use client";
 
-import { ActionIcon, Badge, Card, Group, Menu, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  AspectRatio,
+  Badge,
+  Card,
+  Group,
+  Menu,
+  Text,
+} from "@mantine/core";
 import { IconDotsVertical } from "@tabler/icons-react";
 import React from "react";
 
@@ -12,6 +20,8 @@ interface Props {
     name: string;
     type: "live" | "online";
     memo: string | null;
+    headerUrl?: string | null;
+    iconUrl?: string | null;
   };
 }
 
@@ -36,6 +46,13 @@ export const PokerRoomCard: React.FC<Props> = (props) => {
   return (
     <Card withBorder radius="md">
       <Group justify="space-between">
+        {pokerRoom.headerUrl && (
+          <Card.Section>
+            <AspectRatio ratio={3}>
+              <img src={pokerRoom.headerUrl} alt="" />
+            </AspectRatio>
+          </Card.Section>
+        )}
         <Text fz="md" fw={750}>
           {pokerRoom.name}
         </Text>

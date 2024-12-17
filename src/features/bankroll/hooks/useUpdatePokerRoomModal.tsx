@@ -1,46 +1,21 @@
 "use client";
 
-import { LoadingOverlay, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import {
   PokerRoomForm,
   PokerRoomFormType,
 } from "~/features/bankroll/components/PokerRoomForm";
 import { api } from "~/trpc/react";
+import { uploadFile } from "~/util/uploadFile";
 
 export const useUpdatePokerRoomModal = () => {
   const router = useRouter();
-  const [id, setId] = React.useState<number | null>(null);
-  const { refetch, isPending } = api.pokerRoom.get.useQuery(
-    {
-      id: id || 0,
-    },
-    {
-      enabled: false,
-    },
-  );
-  useEffect(() => {
-    const update = async () => {
-      if (id) {
-        const { data } = await refetch();
-        if (!data || data.length != 1 || !data[0]) {
-          throw new Error("Failed to fetch data");
-        }
-        const newData = data[0];
-        console.log(newData.memo);
-        form.setValues({
-          name: newData.name,
-          type: newData.type,
-          memo: newData.memo || "",
-        });
-      }
-    };
-    update();
-  }, [id]);
+  const [id, setId] = useState<number | null>(null);
 
   const [opened, { open, close }] = useDisclosure();
   const form = useForm<PokerRoomFormType>({
@@ -48,6 +23,8 @@ export const useUpdatePokerRoomModal = () => {
       name: "",
       type: "live",
       memo: "",
+      icon: null,
+      header: null,
     },
     validate: zodResolver(
       z.object({
@@ -58,20 +35,22 @@ export const useUpdatePokerRoomModal = () => {
     ),
   });
 
-  const handleOpen = (id: number) => {
-    form.reset();
-    setId(id);
-    open();
+  type HandleOpenArgs = {
+    data: {
+      id: number;
+    } & PokerRoomFormType;
   };
 
-  const handleClose = () => {
-    setId(null);
-    close();
+  const handleOpen = (args: HandleOpenArgs) => {
+    form.reset();
+    form.setValues(args.data);
+    setId(args.data.id);
+    open();
   };
 
   const mutation = api.pokerRoom.update.useMutation({
     onSuccess: () => {
-      handleClose();
+      close();
       router.refresh();
     },
   });
@@ -79,23 +58,26 @@ export const useUpdatePokerRoomModal = () => {
   const modal = (
     <Modal opened={opened} onClose={close} size="lg" title="ポーカールーム更新">
       <PokerRoomForm
-        handleSubmit={(values) => {
-          if (id === null) {
-            throw new Error("id is null");
-          }
+        handleSubmit={async (values) => {
+          const iconUrl =
+            values.icon !== null && form.isDirty("icon")
+              ? await uploadFile({ file: values.icon }).then((ret) => ret.url)
+              : null;
+          const headerUrl =
+            values.header !== null && form.isDirty("header")
+              ? await uploadFile({ file: values.header }).then((ret) => ret.url)
+              : null;
+
           mutation.mutate({
-            id: id,
+            id: id || -1,
+            iconUrl,
+            headerUrl,
             ...values,
           });
         }}
         form={form}
         pending={mutation.isPending}
         submitLabel="更新"
-      />
-      <LoadingOverlay
-        visible={isPending}
-        zIndex={1000}
-        overlayProps={{ radius: "sm", blur: 2 }}
       />
     </Modal>
   );

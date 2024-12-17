@@ -20,8 +20,11 @@ export const pokerRooms = createApplicationTable("room", {
   userId: varchar("user_id", { length: 255 })
     .notNull()
     .references(() => users.id),
+  order: integer("order").notNull(),
 
   name: varchar("name", { length: 255 }).notNull(),
+  iconUrl: varchar("icon_url", { length: 255 }),
+  headerUrl: varchar("header_url", { length: 255 }),
   type: roomTypeEnum("type").notNull(),
 
   memo: text("memo"),

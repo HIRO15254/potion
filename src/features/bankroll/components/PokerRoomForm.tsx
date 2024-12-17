@@ -1,11 +1,13 @@
+"use client";
+
 import {
   Box,
   BoxProps,
   Button,
+  FileInput,
   Grid,
   Group,
   NativeSelect,
-  Overlay,
   Stack,
   TextInput,
 } from "@mantine/core";
@@ -15,7 +17,9 @@ import { RichTextInput } from "~/component/RichTextInput";
 export type PokerRoomFormType = {
   name: string;
   type: "live" | "online";
-  memo: string;
+  memo: string | null;
+  icon: File | null;
+  header: File | null;
 };
 
 type PokerRoomFormProps = BoxProps & {
@@ -50,6 +54,24 @@ export const PokerRoomForm = (props: PokerRoomFormProps) => {
                 ]}
                 disabled={pending}
                 {...form.getInputProps("type")}
+              />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, xs: 6 }}>
+              <FileInput
+                label="アイコン"
+                description="推奨サイズ: 128×128"
+                accept="image/*"
+                clearable
+                {...form.getInputProps("icon")}
+              />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, xs: 6 }}>
+              <FileInput
+                label="ヘッダー"
+                description="推奨サイズ: 1280×640"
+                accept="image/*"
+                clearable
+                {...form.getInputProps("header")}
               />
             </Grid.Col>
             <Grid.Col span={12}>

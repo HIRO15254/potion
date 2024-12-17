@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import {
   pokerRooms,
@@ -8,7 +8,7 @@ import {
 } from "~/server/db/schema";
 
 export const pokerRoomRouterSchema = {
-  create: pokerRoomsInsertSchema.omit({ userId: true }),
+  create: pokerRoomsInsertSchema.omit({ userId: true, order: true }),
   update: pokerRoomsInsertSchema
     .omit({ userId: true })
     .partial()
@@ -21,8 +21,22 @@ export const pokerRoomRouter = createTRPCRouter({
   create: protectedProcedure
     .input(pokerRoomRouterSchema.create)
     .mutation(async ({ ctx, input }) => {
+      const newOrder = await ctx.db
+        .select({ count: count() })
+        .from(pokerRooms)
+        .where(eq(pokerRooms.userId, ctx.session.user.id))
+        .then((res) => {
+          if (res[0]?.count !== undefined) {
+            return res[0].count + 1;
+          }
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+          });
+        });
+
       await ctx.db.insert(pokerRooms).values({
         userId: ctx.session.user.id,
+        order: newOrder,
         ...input,
       });
     }),
