@@ -60,19 +60,25 @@ export const useUpdatePokerRoomModal = () => {
       <PokerRoomForm
         handleSubmit={async (values) => {
           const iconUrl =
-            values.icon !== null && form.isDirty("icon")
-              ? await uploadFile({ file: values.icon }).then((ret) => ret.url)
+            values.icon !== null
+              ? values.icon.name === "設定済"
+                ? undefined
+                : await uploadFile({ file: values.icon }).then((ret) => ret.url)
               : null;
           const headerUrl =
-            values.header !== null && form.isDirty("header")
-              ? await uploadFile({ file: values.header }).then((ret) => ret.url)
+            values.header !== null
+              ? values.header.name === "設定済"
+                ? undefined
+                : await uploadFile({ file: values.header }).then(
+                    (ret) => ret.url,
+                  )
               : null;
 
           mutation.mutate({
             id: id || -1,
+            ...values,
             iconUrl,
             headerUrl,
-            ...values,
           });
         }}
         form={form}

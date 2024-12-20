@@ -45,14 +45,14 @@ export const PokerRoomCard: React.FC<Props> = (props) => {
 
   return (
     <Card withBorder radius="md">
+      {pokerRoom.headerUrl && (
+        <Card.Section mb="sm">
+          <AspectRatio ratio={3} w="100%">
+            <img width="100%" src={pokerRoom.headerUrl} alt="" />
+          </AspectRatio>
+        </Card.Section>
+      )}
       <Group justify="space-between">
-        {pokerRoom.headerUrl && (
-          <Card.Section>
-            <AspectRatio ratio={3}>
-              <img src={pokerRoom.headerUrl} alt="" />
-            </AspectRatio>
-          </Card.Section>
-        )}
         <Text fz="md" fw={750}>
           {pokerRoom.name}
         </Text>
