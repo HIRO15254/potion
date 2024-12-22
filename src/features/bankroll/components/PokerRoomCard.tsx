@@ -13,6 +13,7 @@ import { IconDotsVertical } from "@tabler/icons-react";
 import React from "react";
 
 interface Props {
+  variant?: "default" | "compact";
   actions: {
     update: () => void;
   };
@@ -26,7 +27,7 @@ interface Props {
 }
 
 export const PokerRoomCard: React.FC<Props> = (props) => {
-  const { pokerRoom, actions } = props;
+  const { variant = "default", pokerRoom, actions } = props;
 
   const menu = (
     <Menu shadow="md" width={200}>
@@ -45,17 +46,24 @@ export const PokerRoomCard: React.FC<Props> = (props) => {
 
   return (
     <Card withBorder radius="md">
-      {pokerRoom.headerUrl && (
+      {variant == "default" && pokerRoom.headerUrl && (
         <Card.Section mb="sm">
           <AspectRatio ratio={3} w="100%">
-            <img width="100%" src={pokerRoom.headerUrl} alt="" />
+            <img src={pokerRoom.headerUrl} alt="" />
           </AspectRatio>
         </Card.Section>
       )}
       <Group justify="space-between">
-        <Text fz="md" fw={750}>
-          {pokerRoom.name}
-        </Text>
+        <Group>
+          {pokerRoom.iconUrl && (
+            <AspectRatio ratio={1} w={32} mr="xs">
+              <img src={pokerRoom.iconUrl} alt="" />
+            </AspectRatio>
+          )}
+          <Text fz="md" fw={750}>
+            {pokerRoom.name}
+          </Text>
+        </Group>
         <Group>
           <Badge color={pokerRoom.type === "live" ? "teal" : "blue"}>
             {pokerRoom.type}

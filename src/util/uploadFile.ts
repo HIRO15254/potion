@@ -8,7 +8,7 @@ export const uploadFile = async (args: Args) => {
   const { file } = args;
   const salt = Math.random().toString(36).slice(-8);
   const response = await fetch(
-    `/api/blob/upload?filename=${file.name + salt}`,
+    `/api/blob/upload?filename=${file.name.slice(0, 100) + salt}`,
     {
       method: "POST",
       body: file,

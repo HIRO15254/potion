@@ -1,6 +1,15 @@
 "use client";
 
-import { Box, Button, Container, Stack } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  Group,
+  SimpleGrid,
+  Stack,
+  useMatches,
+} from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
 import React from "react";
 import { PokerRoomCard } from "~/features/bankroll/components/PokerRoomCard";
 import { useCreatePokerRoomModal } from "~/features/bankroll/hooks/useCreatePokerRoomModal";
@@ -24,41 +33,49 @@ export const PokerRoomList: React.FC<Props> = (props) => {
     useCreatePokerRoomModal();
   const { modal: updatePokerRoomModal, handleOpen: update } =
     useUpdatePokerRoomModal();
+  const cardVariant = useMatches<"compact" | "default">({
+    base: "compact",
+    sm: "default",
+  });
+
   return (
     <>
       {createPokerRoomModal}
-      <Container size="md">
-        <Button onClick={createPokerRoom}>ポーカールーム作成</Button>
-        <Stack>
-          {data.map((room) => {
-            return (
-              <Box key={room.id}>
-                {updatePokerRoomModal}
-                <PokerRoomCard
-                  pokerRoom={room}
-                  actions={{
-                    update: async () => {
-                      const icon = room.iconUrl
-                        ? await getFileFromUrl(room.iconUrl, "設定済")
-                        : null;
-                      const header = room.headerUrl
-                        ? await getFileFromUrl(room.headerUrl, "設定済")
-                        : null;
-                      update({
-                        data: {
-                          ...room,
-                          icon,
-                          header,
-                        },
-                      });
-                    },
-                  }}
-                />
-              </Box>
-            );
-          })}
-        </Stack>
-      </Container>
+      <Group justify="flex-end">
+        <Button onClick={createPokerRoom} leftSection={<IconPlus />} mb="sm">
+          新規作成
+        </Button>
+      </Group>
+      <SimpleGrid cols={{ base: 1, sm: 2 }}>
+        {data.map((room) => {
+          return (
+            <Box key={room.id}>
+              {updatePokerRoomModal}
+              <PokerRoomCard
+                variant={cardVariant}
+                pokerRoom={room}
+                actions={{
+                  update: async () => {
+                    const icon = room.iconUrl
+                      ? await getFileFromUrl(room.iconUrl, "設定済")
+                      : null;
+                    const header = room.headerUrl
+                      ? await getFileFromUrl(room.headerUrl, "設定済")
+                      : null;
+                    update({
+                      data: {
+                        ...room,
+                        icon,
+                        header,
+                      },
+                    });
+                  },
+                }}
+              />
+            </Box>
+          );
+        })}
+      </SimpleGrid>
     </>
   );
 };

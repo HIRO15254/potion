@@ -4,45 +4,27 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import {
   pokerRooms,
   pokerRoomsInsertSchema,
+  pokerRoomsOrder,
   pokerRoomsSelectSchema,
 } from "~/server/db/schema";
 
-export const pokerRoomRouterSchema = {
-  create: pokerRoomsInsertSchema.omit({ userId: true, order: true }),
-  update: pokerRoomsInsertSchema
-    .omit({ userId: true })
-    .partial()
-    .required({ id: true }),
-  get: pokerRoomsSelectSchema.partial(),
-  getById: pokerRoomsSelectSchema.partial().required({ id: true }),
-};
-
 export const pokerRoomRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(pokerRoomRouterSchema.create)
+    .input(pokerRoomsInsertSchema.omit({ userId: true }))
     .mutation(async ({ ctx, input }) => {
-      const newOrder = await ctx.db
-        .select({ count: count() })
-        .from(pokerRooms)
-        .where(eq(pokerRooms.userId, ctx.session.user.id))
-        .then((res) => {
-          if (res[0]?.count !== undefined) {
-            return res[0].count + 1;
-          }
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-          });
-        });
-
       await ctx.db.insert(pokerRooms).values({
         userId: ctx.session.user.id,
-        order: newOrder,
         ...input,
       });
     }),
 
   update: protectedProcedure
-    .input(pokerRoomRouterSchema.update)
+    .input(
+      pokerRoomsInsertSchema
+        .omit({ userId: true })
+        .partial()
+        .required({ id: true }),
+    )
     .mutation(async ({ ctx, input }) => {
       const target = await ctx.db.query.pokerRooms.findFirst({
         where: eq(pokerRooms.id, input.id),
@@ -59,7 +41,7 @@ export const pokerRoomRouter = createTRPCRouter({
     }),
 
   get: protectedProcedure
-    .input(pokerRoomRouterSchema.get)
+    .input(pokerRoomsSelectSchema.partial())
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.pokerRooms.findMany({
         where: and(
@@ -69,8 +51,38 @@ export const pokerRoomRouter = createTRPCRouter({
       });
     }),
 
+  /**
+   * Get all poker rooms
+   */
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const orderResult = await ctx.db.query.pokerRoomsOrder.findFirst({
+      where: eq(pokerRoomsOrder.userId, ctx.session.user.id),
+    });
+    const data = await ctx.db.query.pokerRooms.findMany({
+      where: eq(pokerRooms.userId, ctx.session.user.id),
+    });
+    const order = orderResult?.order ?? [];
+    const newOrder = order
+      .concat(data.filter((d) => !order.includes(d.id)).map((d) => d.id))
+      .filter((id) => data.some((d) => d.id === id));
+    if (orderResult === undefined) {
+      await ctx.db.insert(pokerRoomsOrder).values({
+        userId: ctx.session.user.id,
+        order: newOrder,
+      });
+    } else {
+      await ctx.db
+        .update(pokerRoomsOrder)
+        .set({ order: newOrder })
+        .where(eq(pokerRoomsOrder.userId, ctx.session.user.id));
+    }
+    return newOrder
+      .map((id) => data.find((d) => d.id === id))
+      .filter((d) => d !== undefined);
+  }),
+
   getById: protectedProcedure
-    .input(pokerRoomRouterSchema.getById)
+    .input(pokerRoomsSelectSchema.partial().required({ id: true }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.pokerRooms.findFirst({
         where: and(

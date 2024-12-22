@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  Accordion,
+  AspectRatio,
   Box,
   BoxProps,
   Button,
@@ -13,6 +15,7 @@ import {
 } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { RichTextInput } from "~/component/RichTextInput";
+import { PokerRoomCard } from "~/features/bankroll/components/PokerRoomCard";
 
 export type PokerRoomFormType = {
   name: string;
@@ -56,7 +59,7 @@ export const PokerRoomForm = (props: PokerRoomFormProps) => {
                 {...form.getInputProps("type")}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, xs: 6 }}>
+            <Grid.Col span={{ base: 12, xs: 4 }}>
               <FileInput
                 label="アイコン"
                 description="推奨サイズ: 128×128"
@@ -65,10 +68,10 @@ export const PokerRoomForm = (props: PokerRoomFormProps) => {
                 {...form.getInputProps("icon")}
               />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, xs: 6 }}>
+            <Grid.Col span={{ base: 12, xs: 8 }}>
               <FileInput
                 label="ヘッダー"
-                description="推奨サイズ: 1280×640"
+                description="推奨サイズ: 1500×500"
                 accept="image/*"
                 clearable
                 {...form.getInputProps("header")}
