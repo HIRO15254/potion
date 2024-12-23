@@ -1,8 +1,9 @@
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   integer,
   pgEnum,
   pgTableCreator,
+  real,
   serial,
   text,
   timestamp,
@@ -82,10 +83,9 @@ export const currency = createApplicationTable("currency", {
   userId: varchar("user_id", { length: 255 })
     .notNull()
     .references(() => users.id),
-  order: integer("order").notNull(),
 
   name: varchar("name", { length: 255 }).notNull(),
-  value: integer("value").notNull().default(0),
+  value: real("value").notNull().default(0),
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
@@ -105,7 +105,7 @@ export const currencyTransaction = createApplicationTable(
     currencyId: integer("currency_id")
       .notNull()
       .references(() => currency.id),
-    currencyAmount: integer("currency_amount").notNull(),
+    currencyAmount: real("currency_amount").notNull(),
 
     date: timestamp("date", { withTimezone: true }).notNull(),
 
