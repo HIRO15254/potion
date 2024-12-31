@@ -1,7 +1,7 @@
 import { Container, Title } from "@mantine/core";
 import { NextPage } from "next";
 import React from "react";
-import { PokerRoomList } from "~/features/bankroll/components/PokerRoomList";
+import { PokerRoomList } from "~/features/bankroll/components/pokerRoom/PokerRoomList";
 import { api } from "~/trpc/server";
 
 export const PokerRoomListPage: NextPage = async () => {

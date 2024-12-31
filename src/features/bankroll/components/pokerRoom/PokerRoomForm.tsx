@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Accordion,
-  AspectRatio,
   Box,
   BoxProps,
   Button,
@@ -15,7 +13,6 @@ import {
 } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { RichTextInput } from "~/component/RichTextInput";
-import { PokerRoomCard } from "~/features/bankroll/components/PokerRoomCard";
 
 export type PokerRoomFormType = {
   name: string;

@@ -1,23 +1,20 @@
 "use client";
 
-import {
-  ActionIcon,
-  AspectRatio,
-  Badge,
-  Card,
-  Group,
-  Menu,
-  Text,
-} from "@mantine/core";
+import { ActionIcon, AspectRatio, Card, Group, Text } from "@mantine/core";
 import { IconDotsVertical } from "@tabler/icons-react";
+import Link from "next/link";
 import React from "react";
+import { PokerRoomMenu } from "~/features/bankroll/components/pokerRoom/PokerRoomMenu";
+import { PokerRoomTypeBadge } from "~/features/bankroll/components/pokerRoom/PokerRoomTypeBadge";
 
 interface Props {
   variant?: "default" | "compact";
   actions: {
     update: () => void;
+    delete: () => void;
   };
   pokerRoom: {
+    id: number;
     name: string;
     type: "live" | "online";
     memo: string | null;
@@ -28,21 +25,6 @@ interface Props {
 
 export const PokerRoomCard: React.FC<Props> = (props) => {
   const { variant = "default", pokerRoom, actions } = props;
-
-  const menu = (
-    <Menu shadow="md" width={200}>
-      <Menu.Target>
-        <ActionIcon variant="transparent" color="dark">
-          <IconDotsVertical />
-        </ActionIcon>
-      </Menu.Target>
-
-      <Menu.Dropdown>
-        <Menu.Item onClick={actions.update}>更新</Menu.Item>
-        <Menu.Item color="red">削除</Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
-  );
 
   return (
     <Card withBorder radius="md">
@@ -60,15 +42,19 @@ export const PokerRoomCard: React.FC<Props> = (props) => {
               <img src={pokerRoom.iconUrl} alt="" />
             </AspectRatio>
           )}
-          <Text fz="md" fw={750}>
-            {pokerRoom.name}
-          </Text>
+          <Link href={`/bankroll/pokerroom/${pokerRoom.id}`}>
+            <Text fz="md" fw={750}>
+              {pokerRoom.name}
+            </Text>
+          </Link>
         </Group>
         <Group>
-          <Badge color={pokerRoom.type === "live" ? "teal" : "blue"}>
-            {pokerRoom.type}
-          </Badge>
-          {menu}
+          <PokerRoomTypeBadge type={pokerRoom.type} />
+          <PokerRoomMenu actions={actions}>
+            <ActionIcon variant="transparent" color="dark">
+              <IconDotsVertical />
+            </ActionIcon>
+          </PokerRoomMenu>
         </Group>
       </Group>
     </Card>

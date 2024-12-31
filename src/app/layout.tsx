@@ -8,9 +8,13 @@ import "@mantine/tiptap/styles.css";
 import { Box, ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { type Metadata } from "next";
 
+import { ModalsProvider } from "@mantine/modals";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CustomAppShell } from "~/component/CustomAppShell";
 import { loginProtection } from "~/features/auth/loginProtection";
 import { TRPCReactProvider } from "~/trpc/react";
+
+import { modals } from "~/util/modals";
 
 export const metadata: Metadata = {
   title: "Potion",
@@ -21,6 +25,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   await loginProtection();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -30,7 +35,11 @@ export default async function RootLayout({
         <TRPCReactProvider>
           <SpeedInsights />
           <MantineProvider>
-            <Box m="sm">{children}</Box>
+            <ModalsProvider modals={modals}>
+              <CustomAppShell>
+                <Box m="sm">{children}</Box>
+              </CustomAppShell>
+            </ModalsProvider>
           </MantineProvider>
         </TRPCReactProvider>
       </body>

@@ -40,6 +40,20 @@ export const pokerRoomRouter = createTRPCRouter({
         .where(eq(pokerRooms.id, input.id));
     }),
 
+  delete: protectedProcedure
+    .input(pokerRoomsSelectSchema.pick({ id: true }).required())
+    .mutation(async ({ ctx, input }) => {
+      const target = await ctx.db.query.pokerRooms.findFirst({
+        where: eq(pokerRooms.id, input.id),
+      });
+      if (!target || target.userId !== ctx.session.user.id) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+        });
+      }
+      await ctx.db.delete(pokerRooms).where(eq(pokerRooms.id, input.id));
+    }),
+
   get: protectedProcedure
     .input(pokerRoomsSelectSchema.partial())
     .query(async ({ ctx, input }) => {
@@ -83,6 +97,17 @@ export const pokerRoomRouter = createTRPCRouter({
 
   getById: protectedProcedure
     .input(pokerRoomsSelectSchema.partial().required({ id: true }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.query.pokerRooms.findFirst({
+        where: and(
+          eq(pokerRooms.userId, ctx.session.user.id),
+          eq(pokerRooms.id, input.id),
+        ),
+      });
+    }),
+
+  detail: protectedProcedure
+    .input(pokerRoomsSelectSchema.pick({ id: true }).required())
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.pokerRooms.findFirst({
         where: and(
